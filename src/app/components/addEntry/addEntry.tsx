@@ -4,12 +4,21 @@ import Header from "../header/header";
 import TypePicker from "../typePicker/typePicker";
 import { Button } from "flowbite-react";
 import TextButton from "../buttons/textButton/textButton";
+import { useEffect, useState } from "react";
+import { time } from "console";
+import Entry from "@/app/types/models/entry";
+import EntryType from "@/app/types/enums/entryType";
 
 interface AddEntryProps {
     date: Date;
 }
 
 const AddEntry: React.FC<AddEntryProps> = ({date}) => {
+
+  const [name, setName] = useState<string>("");
+  const [type, setType] = useState<EntryType>(EntryType.Food);
+  const [hours, setHours] = useState<number>(date.getHours());
+  const [minutes, setMinutes] = useState<number>(date.getMinutes());
 
   const inputTheme = {
     "base": "flex ",
@@ -26,37 +35,99 @@ const AddEntry: React.FC<AddEntryProps> = ({date}) => {
     }
   }
 
-  function addEntry(){
 
+    useEffect(() => {
+      if (date.getHours() === 0) {
+        setHours(new Date().getHours());
+        setMinutes(new Date().getMinutes())
+      }
+    }, [date]);
+
+  async function addEntry(){
+
+      const dateToAdd = new Date(date);
+      dateToAdd.setHours(hours);
+      dateToAdd.setMinutes(minutes);
+
+      const entryToAdd: Entry = {
+        name: name,
+        entryType: type,
+        time: new Date(dateToAdd),
+        userId: "950295eb-bff1-4243-8680-537aa62860e8"
+      }
+
+      const response = await fetch("../api/entry/add-entry", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(entryToAdd)
+      })
+      if (response.status === 200) {
+          const json = await response.json();
+          console.log(response);
+      } else {
+          console.log(response);
+      }
   }
 
 
   return (
     <div className="h-full">
-      <Header title="Add Entry"/>
+      <Header title="Add Entry" />
       <div className="p-5">
         <div className="p-2">
           <h1>Name:</h1>
-          <TextInput color="gray" theme={inputTheme}/>
+          <TextInput
+            color="gray"
+            theme={inputTheme}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className="p-2">
           <h1>Type:</h1>
-          <TypePicker/>
+          <TypePicker setType={setType}/>
         </div>
         <div className="p-2">
           <h1>Time:</h1>
           <div className="flex items-center">
-            <TextInput defaultValue={date.getHours()} color="gray" theme={inputTheme}/>
+            <TextInput
+              type="number"
+              value={hours}
+              onChange={(e)=>{setHours(Number(e.target.value))}}
+              color="gray"
+              theme={inputTheme}
+            />
             <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
-            <TextInput defaultValue={date.getMinutes()} color="gray" theme={inputTheme}/>
+            <TextInput
+              type="number"
+              value={minutes}
+              onChange={(e)=>{setMinutes(Number(e.target.value))}}
+              color="gray"
+              theme={inputTheme}
+            />
           </div>
         </div>
         <div className="p-2">
           <h1>Date:</h1>
-          <TextInput theme={inputTheme} disabled={true} value={date.getUTCDate().toString().padStart(2, "0") + " " + date.toLocaleString("en-US", { month: "short", timeZone: "UTC" }) + " " + date.getUTCFullYear()} />
+          <TextInput
+            theme={inputTheme}
+            disabled={true}
+            value={
+              date
+                .getUTCDate()
+                .toString()
+                .padStart(2, "0") +
+              " " +
+              date.toLocaleString("en-US", { month: "short", timeZone: "UTC" }) +
+              " " +
+              date.getUTCFullYear()
+            }
+          />
         </div>
-        <div onClick={()=>{addEntry()}} className="p-2">
-          <TextButton text="Add Entry"/>
+        <div onClick={addEntry} className="p-2">
+          <TextButton text="Add Entry" />
         </div>
       </div>
     </div>
