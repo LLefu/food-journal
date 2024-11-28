@@ -4,16 +4,14 @@ import EntryList from "../entryList/entryList";
 import Header from "../header/header";
 
 interface TodayProps {
+  setPage: Function;
 }
 
-const Today: React.FC<TodayProps> = ({}) => {
+const Today: React.FC<TodayProps> = ({setPage}) => {
   return <div>
     <Header title="Today"/>
     <div>
-        <EntryList/>
-    </div>
-    <div className="w-full">
-        <CircleButton icon="plus"/>
+        <EntryList setPage={setPage} date={new Date()}/>
     </div>
   </div>;
 };

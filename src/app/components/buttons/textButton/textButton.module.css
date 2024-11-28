@@ -1,0 +1,9 @@
+.textButton{
+    background-color: var(--highlight);
+    height: 50px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 20px;
+}
