@@ -17,7 +17,16 @@ const EntryItem: React.FC<EntryItemProps> = ({entryType, name, time}) => {
   };
   const iconClass = iconMap[entryType];
 
-  return <div className={`${styles.entryItem}`}>
+  const colors: { [key in EntryType]: string } = {
+    [EntryType.Food]: "rgb(76, 153, 31)",
+    [EntryType.Bathroom]: "rgb(207, 133, 35)",
+    [EntryType.StomacheStart]: "rgb(151, 55, 55)",
+    [EntryType.StomacheEnd]: "rgb(151, 55, 55)",
+  };
+
+  const bgColor = colors[entryType];
+
+  return <div className={`${styles.entryItem}`} style={{backgroundColor: bgColor}}>
     <i className={`fa ${iconClass} p-3`}></i>
     <p className="flex-grow">{name}</p>
     <p className="p-3">{time}</p>

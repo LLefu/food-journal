@@ -1,7 +1,5 @@
 .entryItem{
-    flex-grow: 1;
     height: 50px;
-    background-color: var(--background-light);
     margin: 20px;
     margin-bottom: 5px;
     margin-top: 10px;
