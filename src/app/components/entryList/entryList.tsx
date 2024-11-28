@@ -65,7 +65,9 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
     {entries.map((entry, index) => (
           <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time.toLocaleTimeString()}/>
     ))}
-    <div className="p-5" onClick={()=>{
+    {entries.length < 1 && 
+    <p className="pt-5">No entries yet</p>}
+    <div className="p-5 w-full" onClick={()=>{
         setPage(<AddEntry date={date} setPage={setPage} />)}}>
         <TextButton text="Add Entry"/>
     </div>
