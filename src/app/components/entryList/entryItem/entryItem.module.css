@@ -1,0 +1,8 @@
+.entryItem{
+    flex-grow: 1;
+    height: 50px;
+    background-color: var(--background-light);
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,6 @@
+.mainContent{
+    flex-grow: 1;
+    height: auto;
+    width: 100%;
+    background-color: var(--background)
+}
