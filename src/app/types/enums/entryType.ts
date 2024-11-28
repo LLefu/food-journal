@@ -1,8 +1,8 @@
 enum EntryType {
-    Food = "food",
-    Bathroom = "bathroom",
-    StomacheStart = "stomacheStart",
-    StomacheEnd = "stomacheEnd",
+    Food = "Food",
+    Bathroom = "Bathroom",
+    StomacheStart = "StomacheStart",
+    StomacheEnd = "StomacheEnd",
   }
 
 export default EntryType;

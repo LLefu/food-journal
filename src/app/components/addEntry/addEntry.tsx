@@ -1,5 +1,5 @@
 "use client";
-import { TextInput } from "flowbite-react";
+import { TextInput, Timeline } from "flowbite-react";
 import Header from "../header/header";
 import TypePicker from "../typePicker/typePicker";
 import { Button } from "flowbite-react";
@@ -42,6 +42,14 @@ const AddEntry: React.FC<AddEntryProps> = ({date}) => {
         <div className="p-2">
           <h1>Type:</h1>
           <TypePicker/>
+        </div>
+        <div className="p-2">
+          <h1>Time:</h1>
+          <div className="flex items-center">
+            <TextInput defaultValue={date.getHours()} color="gray" theme={inputTheme}/>
+            <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
+            <TextInput defaultValue={date.getMinutes()} color="gray" theme={inputTheme}/>
+          </div>
         </div>
         <div className="p-2">
           <h1>Date:</h1>

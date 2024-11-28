@@ -3,7 +3,7 @@ import EntryType from "../enums/entryType";
 interface Entry {
     entryType: EntryType;
     name: string;
-    time: string;
+    time: Date;
 }
 
 export default Entry;

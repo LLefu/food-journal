@@ -6,30 +6,12 @@ import Entry from "@/app/types/models/entry";
 import CircleButton from "../buttons/circleButton/circleButton";
 import { useRouter } from "next/navigation";
 import AddEntry from "../addEntry/addEntry";
+import { useEffect, useState } from "react";
 
-const entries : Entry[] = [
-    {
-        entryType: EntryType.Food,
-        name: "Pears",
-        time: "18:42"
-    },
-    {
-        entryType: EntryType.StomacheStart,
-        name: "Stomache Start",
-        time: "18:52"
-    },
-    {
-        entryType: EntryType.Bathroom,
-        name: "Normal",
-        time: "19:12"
-    },
-    {
-        entryType: EntryType.StomacheEnd,
-        name: "Stomache End",
-        time: "19:20"
-    }
-]
 
+function isValidEntryType(value: any): value is EntryType {
+    return Object.values(EntryType).includes(value);
+}
 
 interface EntryListProps {
     setPage: Function;
@@ -37,14 +19,42 @@ interface EntryListProps {
 }
 
 const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
+    const [entries, setEntries] = useState<Entry[]>([]);
+    const router = useRouter();
 
-  const router = useRouter();
+    async function getEntries() {
+        const day = new Date(date);
+        day.setUTCHours(0, 0, 0, 0);
+
+        const response = await fetch("../api/entry/get-entries", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(day)
+        })
+        if (response.status === 200) {
+            const json = await response.json();
+            const parsedEntries = json.entries.map((entry: Entry) => ({
+                ...entry,
+                time: new Date(entry.time),
+            }));
+            setEntries(parsedEntries)
+        } else {
+            console.log(response);
+        }
+    }
+
+    useEffect(() => {
+        getEntries();
+    }, [])
 
   return <div className={styles.entryList}>
     {entries.map((entry, index) => (
-          <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time}/>
+          <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time.toLocaleTimeString()}/>
     ))}
-    <div onClick={()=>{setPage(<AddEntry date={date} />)}}>
+    <div onClick={()=>{
+        setPage(<AddEntry date={date} />)}}>
         <CircleButton icon="plus"/>
     </div>
   </div>;

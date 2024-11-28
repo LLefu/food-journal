@@ -8,6 +8,7 @@ interface TodayProps {
 }
 
 const Today: React.FC<TodayProps> = ({setPage}) => {
+
   return <div>
     <Header title="Today"/>
     <div>
