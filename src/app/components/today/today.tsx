@@ -9,12 +9,7 @@ interface TodayProps {
 
 const Today: React.FC<TodayProps> = ({setPage}) => {
 
-  return <div>
-    <Header title="Today"/>
-    <div>
-        <EntryList setPage={setPage} date={new Date()}/>
-    </div>
-  </div>;
+  return <EntryList setPage={setPage} date={new Date()}/>
 };
 
 export default Today;

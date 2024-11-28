@@ -1,19 +1,19 @@
 "use client";
-import { TextInput, Timeline } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import Header from "../header/header";
 import TypePicker from "../typePicker/typePicker";
-import { Button } from "flowbite-react";
 import TextButton from "../buttons/textButton/textButton";
 import { useEffect, useState } from "react";
-import { time } from "console";
 import Entry from "@/app/types/models/entry";
 import EntryType from "@/app/types/enums/entryType";
+import Today from "../today/today";
 
 interface AddEntryProps {
     date: Date;
+    setPage: Function;
 }
 
-const AddEntry: React.FC<AddEntryProps> = ({date}) => {
+const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
 
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<EntryType>(EntryType.Food);
@@ -64,8 +64,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date}) => {
           body: JSON.stringify(entryToAdd)
       })
       if (response.status === 200) {
-          const json = await response.json();
-          console.log(response);
+        setPage(<Today setPage={setPage} />)
       } else {
           console.log(response);
       }
@@ -74,7 +73,6 @@ const AddEntry: React.FC<AddEntryProps> = ({date}) => {
 
   return (
     <div className="h-full">
-      <Header title="Add Entry" />
       <div className="p-5">
         <div className="p-2">
           <h1>Name:</h1>

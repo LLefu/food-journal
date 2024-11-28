@@ -57,7 +57,6 @@ const Calendar: React.FC<CalendarProps> = ({setDate}) => {
   }
 
   return <div>
-      <Header title='Calendar'/>
       <Datepicker onChange={(date) =>{onSelectDate(date)}} theme={calendarTheme} showClearButton={false} showTodayButton={false} inline={true}></Datepicker>
     </div>
 };

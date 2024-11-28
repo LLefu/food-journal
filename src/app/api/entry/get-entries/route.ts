@@ -20,6 +20,10 @@ export async function POST(req: Request) {
                 lt: endOfDay,
             }
         },
+        orderBy: {
+            time: 'asc'
+        }
+        
     });
 
     return NextResponse.json(

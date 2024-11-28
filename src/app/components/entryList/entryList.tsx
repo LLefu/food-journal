@@ -7,6 +7,8 @@ import CircleButton from "../buttons/circleButton/circleButton";
 import { useRouter } from "next/navigation";
 import AddEntry from "../addEntry/addEntry";
 import { useEffect, useState } from "react";
+import TextButton from "../buttons/textButton/textButton";
+import { Spinner } from "flowbite-react";
 
 
 function isValidEntryType(value: any): value is EntryType {
@@ -21,6 +23,7 @@ interface EntryListProps {
 const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
     const [entries, setEntries] = useState<Entry[]>([]);
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
 
     async function getEntries() {
         const day = new Date(date);
@@ -40,6 +43,7 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
                 time: new Date(entry.time),
             }));
             setEntries(parsedEntries)
+            setLoading(false);
         } else {
             console.log(response);
         }
@@ -49,15 +53,23 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
         getEntries();
     }, [])
 
-  return <div className={styles.entryList}>
+    if(loading){
+        return(
+            <div className="w-full h-full flex justify-center items-center">
+                <Spinner/>
+            </div>
+        )
+    }
+
+  return( <div className={styles.entryList}>
     {entries.map((entry, index) => (
           <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time.toLocaleTimeString()}/>
     ))}
-    <div onClick={()=>{
-        setPage(<AddEntry date={date} />)}}>
-        <CircleButton icon="plus"/>
+    <div className="p-5" onClick={()=>{
+        setPage(<AddEntry date={date} setPage={setPage} />)}}>
+        <TextButton text="Add Entry"/>
     </div>
-  </div>;
+  </div>);
 };
 
 export default EntryList;
