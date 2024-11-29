@@ -114,7 +114,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
             disabled={true}
             value={
               date
-                .getUTCDate()
+                .getDate()
                 .toString()
                 .padStart(2, "0") +
               " " +

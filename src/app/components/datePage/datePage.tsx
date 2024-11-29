@@ -9,8 +9,9 @@ interface DatePageProps {
 }
 
 const DatePage: React.FC<DatePageProps> = ({date, setPage}) => {
-  return <div>
-    <div>
+  return <div className="flex flex-col items-center pt-4">
+    <p>{date.toDateString()}</p>
+    <div className="w-full">
         <EntryList date={date} setPage={setPage}/>
     </div>
   </div>;

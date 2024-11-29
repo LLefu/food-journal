@@ -27,7 +27,9 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
 
     async function getEntries() {
         const day = new Date(date);
-        day.setUTCHours(0, 0, 0, 0);
+        day.setHours(0);
+        day.setMinutes(0);
+        day.setSeconds(0);
 
         const response = await fetch("../api/entry/get-entries", {
             method: "POST",
@@ -63,7 +65,7 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
 
   return( <div className={styles.entryList}>
     {entries.map((entry, index) => (
-          <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time.toLocaleTimeString()}/>
+          <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time.toTimeString()}/>
     ))}
     {entries.length < 1 && 
     <p className="pt-5">No entries yet</p>}

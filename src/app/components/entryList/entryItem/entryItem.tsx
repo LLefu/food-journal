@@ -29,7 +29,7 @@ const EntryItem: React.FC<EntryItemProps> = ({entryType, name, time}) => {
   return <div className={`${styles.entryItem}`} style={{backgroundColor: bgColor}}>
     <i className={`fa ${iconClass} p-3`}></i>
     <p className="flex-grow">{name}</p>
-    <p className="p-3">{time}</p>
+    <p className="p-3">{time.slice(0, -45)}</p>
   </div>;
 };
 

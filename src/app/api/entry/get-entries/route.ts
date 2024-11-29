@@ -8,10 +8,13 @@ export async function POST(req: Request) {
     const json = await req.json();
         
     const startOfDay = new Date(json);
-    startOfDay.setUTCHours(0, 0, 0, 0);
+    startOfDay.setHours(0);
+    startOfDay.setMinutes(0);
+    startOfDay.setSeconds(0);
     const endOfDay = new Date(startOfDay);
-    endOfDay.setUTCHours(23, 59, 59, 999);
-    
+    endOfDay.setHours(23);
+    endOfDay.setMinutes(59);
+    endOfDay.setSeconds(59);
 
     const entries = await prisma.entry.findMany({
         where: {

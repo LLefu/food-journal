@@ -57,7 +57,7 @@ const Calendar: React.FC<CalendarProps> = ({setDate}) => {
   }
 
   return <div>
-      <Datepicker onChange={(date) =>{onSelectDate(date)}} theme={calendarTheme} showClearButton={false} showTodayButton={false} inline={true}></Datepicker>
+      <Datepicker defaultValue={new Date()}  onChange={(date) =>{onSelectDate(date)}} theme={calendarTheme} showClearButton={false} showTodayButton={false} inline={true}></Datepicker>
     </div>
 };
 
