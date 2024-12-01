@@ -27,9 +27,6 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
 
     async function getEntries() {
         const day = new Date(date);
-        day.setHours(0);
-        day.setMinutes(0);
-        day.setSeconds(0);
 
         const response = await fetch("../api/entry/get-entries", {
             method: "POST",
