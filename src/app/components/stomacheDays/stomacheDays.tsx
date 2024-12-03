@@ -44,7 +44,9 @@ const StomacheDays: React.FC<StomacheDaysProps> = ({setDate}) => {
         </div>
     </div>}
     {!loaded &&
+    <div className="flex justify-center">
         <Spinner/>
+    </div>
     }
   </div>;
 };

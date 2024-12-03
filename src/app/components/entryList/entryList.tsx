@@ -11,9 +11,10 @@ import { Spinner } from "flowbite-react";
 interface EntryListProps {
     setPage: Function;
     date: Date;
+    setTitle: Function;
 }
 
-const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
+const EntryList: React.FC<EntryListProps> = ({setPage, date, setTitle}) => {
     const [entries, setEntries] = useState<Entry[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -43,27 +44,22 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
         }
     }
     
-
     useEffect(() => {
         getEntries();
     }, [])
 
-    if(loading){
-        return(
-            <div className="w-full h-full flex justify-center items-center">
-                <Spinner/>
-            </div>
-        )
-    }
-
   return( <div className={styles.entryList}>
-    {entries.map((entry, index) => (
+      {loading && <div className="w-full pt-5 flex justify-center items-center">
+                  <Spinner/>
+              </div>}
+    {!loading && <>{entries.map((entry, index) => (
           <EntryItem refresh={getEntries} key={index} entry={entry}/>
     ))}
     {entries.length < 1 && 
-    <p className="pt-5">No entries yet</p>}
+    <p className="pt-5">No entries yet</p>}</>}
+    
     <div className="p-5 w-full" onClick={()=>{
-        setPage(<AddEntry date={date} setPage={setPage} />)}}>
+        setPage(<AddEntry date={date} setPage={setPage} setTitle={setTitle} />)}}>
         <TextButton text="Add Entry"/>
     </div>
   </div>);

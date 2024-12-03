@@ -11,9 +11,10 @@ import Today from "../today/today";
 interface AddEntryProps {
     date: Date;
     setPage: Function;
+    setTitle: Function;
 }
 
-const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
+const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
 
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<EntryType>(EntryType.Food);
@@ -42,6 +43,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
         setHours(new Date().getHours());
         setMinutes(new Date().getMinutes())
       }
+      setTitle("Add Entry");
     }, [date]);
 
   async function addEntry(){
@@ -67,7 +69,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
             body: JSON.stringify(entryToAdd)
         })
         if (response.status === 200) {
-          setPage(<Today setPage={setPage} />)
+          setPage(<Today setTitle={setTitle} setPage={setPage} />)
         } else {
             console.log(response);
         }

@@ -5,11 +5,12 @@ import Header from "../header/header";
 
 interface TodayProps {
   setPage: Function;
+  setTitle: Function;
 }
 
-const Today: React.FC<TodayProps> = ({setPage}) => {
+const Today: React.FC<TodayProps> = ({setPage, setTitle}) => {
 
-  return <EntryList setPage={setPage} date={new Date()}/>
+  return <EntryList setTitle={setTitle} setPage={setPage} date={new Date()}/>
 };
 
 export default Today;

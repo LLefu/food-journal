@@ -10,10 +10,11 @@ import { useRouter } from "next/navigation";
 export default function Home() {
 
   const [currentPage, setCurrentPage] = useState<JSX.Element>();
+  const [title, setTitle] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
   function selectDate(date: Date){
-    setCurrentPage(<DatePage date={date} setPage={setCurrentPage}/>)
+    setCurrentPage(<DatePage setTitle={setTitle} date={date} setPage={setCurrentPage}/>)
   }
 
  
@@ -28,7 +29,7 @@ export default function Home() {
       if (!loggedIn) {
         router.push("/pages/login");
       } else {
-        setCurrentPage(<Today setPage={setCurrentPage} />);
+        setCurrentPage(<Today setTitle={setTitle} setPage={setCurrentPage} />);
         setIsLoaded(true);
       }
     };
@@ -38,9 +39,9 @@ export default function Home() {
 
   if(isLoaded){ return (
     <div className="h-screen flex flex-col">
-      <Header title=""/>
+      <Header title={title}/>
       <MainContent content={currentPage}/>
-      <NavMenu currentPage={currentPage!} setPage={setCurrentPage} goDatePage={selectDate}/>
+      <NavMenu setTitle={setTitle} currentPage={currentPage!} setPage={setCurrentPage} goDatePage={selectDate}/>
     </div>
   )}else return(
     <div>
