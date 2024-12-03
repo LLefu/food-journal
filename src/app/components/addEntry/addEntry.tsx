@@ -1,5 +1,5 @@
 "use client";
-import { TextInput } from "flowbite-react";
+import { Spinner, TextInput } from "flowbite-react";
 import Header from "../header/header";
 import TypePicker from "../typePicker/typePicker";
 import TextButton from "../buttons/textButton/textButton";
@@ -47,8 +47,6 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
     }, [date]);
 
   async function addEntry(){
-
-      if(!timeOut){
         setTimeOut(true);
         const dateToAdd = new Date(date);
         dateToAdd.setHours(hours);
@@ -73,10 +71,6 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
         } else {
             console.log(response);
         }
-        setTimeout(() => {
-          setTimeOut(false);
-        }, 300);
-      }
   }
 
 
@@ -133,9 +127,14 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
             }
           />
         </div>
-        <div onClick={addEntry} className="p-2">
+        {timeOut && 
+          <div className="flex justify-center pt-5">
+            <Spinner/>
+          </div>
+        }
+        {!timeOut && <div onClick={addEntry} className="p-2">
           <TextButton text="Add Entry" />
-        </div>
+        </div>}
       </div>
     </div>
   );
