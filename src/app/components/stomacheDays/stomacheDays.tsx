@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Entry from "@/app/types/models/entry";
+import { Spinner } from "flowbite-react";
 
 interface StomacheDaysProps {
     setDate: Function;
@@ -42,6 +43,9 @@ const StomacheDays: React.FC<StomacheDaysProps> = ({setDate}) => {
         ))}
         </div>
     </div>}
+    {!loaded &&
+        <Spinner/>
+    }
   </div>;
 };
 
