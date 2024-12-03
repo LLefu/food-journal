@@ -30,6 +30,7 @@ export default function Home() {
         router.push("/pages/login");
       } else {
         setCurrentPage(<Today setTitle={setTitle} setPage={setCurrentPage} />);
+        setTitle("Today");
         setIsLoaded(true);
       }
     };

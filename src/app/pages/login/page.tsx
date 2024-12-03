@@ -1,15 +1,17 @@
 "use client";
 import TextButton from "@/app/components/buttons/textButton/textButton";
-import { TextInput } from "flowbite-react";
+import { Spinner, TextInput } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     async function login() {
+        setLoading(true);
         const response = await fetch("../api/user/login", {
             method: "POST",
             headers: {
@@ -45,9 +47,12 @@ const Login = () => {
           placeholder="Enter your password"
         />
       </div>
-      <div onClick={()=>{login()}} className="pb-16">
+      {loading &&   <div className="w-full flex justify-center items-center">
+                <Spinner/>
+            </div>}
+      {!loading && <div onClick={()=>{login()}} className="pb-16">
         <TextButton text="Login" />
-       </div>
+       </div>}
     </div>
   );
 };
