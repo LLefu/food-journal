@@ -33,7 +33,7 @@ const StomacheDays: React.FC<StomacheDaysProps> = ({setDate}) => {
     },[])
 
   return <div className="p-4" >
-        <p className="ps-3">Stomache Ache Days:</p>
+        <p className="ps-3">Stomach Ache Days:</p>
     {loaded && <div>
         <div className="ps-3 flex flex-wrap justify-start">
         {stomacheDays.map((entry: Entry, index) => (
