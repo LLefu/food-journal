@@ -58,7 +58,7 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date}) => {
 
   return( <div className={styles.entryList}>
     {entries.map((entry, index) => (
-          <EntryItem key={index} entryType={entry.entryType} name={entry.name} time={entry.time.toTimeString()}/>
+          <EntryItem refresh={getEntries} key={index} entry={entry}/>
     ))}
     {entries.length < 1 && 
     <p className="pt-5">No entries yet</p>}

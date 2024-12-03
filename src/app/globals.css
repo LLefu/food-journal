@@ -20,6 +20,14 @@
   border: var(--background-light);
 }
 
+.bg-neutral-400{
+  background-color: var(--highlight);
+}
+
+.border-neutral-400{
+  border: var(--highlight);
+}
+
 body {
   color: var(--text);
   background-color: var(--background);

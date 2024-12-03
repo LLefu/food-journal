@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
-import { Datepicker, FlowbiteDatepickerPopupTheme, FlowbiteDatepickerTheme } from "flowbite-react";
-import Header from '../header/header';
+import { Datepicker } from "flowbite-react";
+import StomacheDays from '../stomacheDays/stomacheDays';
 
 interface CalendarProps {
   setDate: Function;
@@ -58,6 +58,7 @@ const Calendar: React.FC<CalendarProps> = ({setDate}) => {
 
   return <div>
       <Datepicker defaultValue={new Date()}  onChange={(date) =>{onSelectDate(date)}} theme={calendarTheme} showClearButton={false} showTodayButton={false} inline={true}></Datepicker>
+      <StomacheDays setDate={setDate}/>
     </div>
 };
 

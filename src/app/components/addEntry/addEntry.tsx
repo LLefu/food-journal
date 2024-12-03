@@ -19,6 +19,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
   const [type, setType] = useState<EntryType>(EntryType.Food);
   const [hours, setHours] = useState<number>(date.getHours());
   const [minutes, setMinutes] = useState<number>(date.getMinutes());
+  const [timeOut, setTimeOut] = useState(false);
 
   const inputTheme = {
     "base": "flex ",
@@ -45,28 +46,34 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage}) => {
 
   async function addEntry(){
 
-      const dateToAdd = new Date(date);
-      dateToAdd.setHours(hours);
-      dateToAdd.setMinutes(minutes);
+      if(!timeOut){
+        setTimeOut(true);
+        const dateToAdd = new Date(date);
+        dateToAdd.setHours(hours);
+        dateToAdd.setMinutes(minutes);
 
-      const entryToAdd: Entry = {
-        name: name,
-        entryType: type,
-        time: new Date(dateToAdd),
-        userId: "950295eb-bff1-4243-8680-537aa62860e8"
-      }
+        const entryToAdd: Entry = {
+          name: name,
+          entryType: type,
+          time: new Date(dateToAdd),
+          userId: "950295eb-bff1-4243-8680-537aa62860e8"
+        }
 
-      const response = await fetch("../api/entry/add-entry", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify(entryToAdd)
-      })
-      if (response.status === 200) {
-        setPage(<Today setPage={setPage} />)
-      } else {
-          console.log(response);
+        const response = await fetch("../api/entry/add-entry", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(entryToAdd)
+        })
+        if (response.status === 200) {
+          setPage(<Today setPage={setPage} />)
+        } else {
+            console.log(response);
+        }
+        setTimeout(() => {
+          setTimeOut(false);
+        }, 300);
       }
   }
 
