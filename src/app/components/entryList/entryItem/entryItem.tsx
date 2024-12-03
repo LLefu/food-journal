@@ -2,7 +2,7 @@
 import EntryType from "@/app/types/enums/entryType";
 import styles from "./entryItem.module.css";
 import Entry from "@/app/types/models/entry";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 
 interface EntryItemProps {

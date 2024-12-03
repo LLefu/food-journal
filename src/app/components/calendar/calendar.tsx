@@ -1,7 +1,8 @@
 "use client";
 import React from 'react';
-import { Datepicker } from "flowbite-react";
+import { Datepicker, WeekStart } from "flowbite-react";
 import StomacheDays from '../stomacheDays/stomacheDays';
+import WeekView from '../weekView/weekView';
 
 interface CalendarProps {
   setDate: Function;
@@ -57,7 +58,10 @@ const Calendar: React.FC<CalendarProps> = ({setDate}) => {
   }
 
   return <div>
-      <Datepicker defaultValue={new Date()}  onChange={(date) =>{onSelectDate(date)}} theme={calendarTheme} showClearButton={false} showTodayButton={false} inline={true}></Datepicker>
+      <Datepicker weekStart={WeekStart.Monday} defaultValue={new Date()}  onChange={(date) =>{onSelectDate(date)}} theme={calendarTheme} showClearButton={false} showTodayButton={false} inline={true}></Datepicker>
+      <hr className='ms-2 me-2 rounded h-1'/>
+      <WeekView setDate={setDate}/>
+      <hr className='ms-2 me-2 rounded h-1'/>
       <StomacheDays setDate={setDate}/>
     </div>
 };

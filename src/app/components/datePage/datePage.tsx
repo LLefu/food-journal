@@ -1,8 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import CircleButton from "../buttons/circleButton/circleButton";
 import EntryList from "../entryList/entryList";
-import Header from "../header/header";
 
 interface DatePageProps {
     date: Date;
