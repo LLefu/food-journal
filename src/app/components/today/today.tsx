@@ -10,7 +10,9 @@ interface TodayProps {
 
 const Today: React.FC<TodayProps> = ({setPage, setTitle}) => {
 
-  return <EntryList setTitle={setTitle} setPage={setPage} date={new Date()}/>
+  return <div className="pt-4">
+    <EntryList setTitle={setTitle} setPage={setPage} date={new Date()}/>
+  </div>
 };
 
 export default Today;
