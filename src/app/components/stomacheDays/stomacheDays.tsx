@@ -33,12 +33,12 @@ const StomacheDays: React.FC<StomacheDaysProps> = ({setDate}) => {
     },[])
 
   return <div className="p-4" >
-        <p className="ps-3">Stomach Ache Days:</p>
+        <p className="ps-5">Stomach Ache Days:</p>
     {loaded && <div>
-        <div className="ps-3 flex flex-wrap justify-start">
+        <div className="ps-5 flex flex-wrap justify-start">
         {stomacheDays.map((entry: Entry, index) => (
-            <div onClick={()=>{setDate(entry.time)}} className="w-20 text-center h-8 bg-red-500 rounded pt-1 pb-1 pe-1 m-1 mt-3" key={index}>
-                {entry.time.getDate()} - {entry.time.getMonth() + 1}
+            <div onClick={()=>{setDate(entry.time)}} className="w-12 text-center h-8 bg-red-500 rounded pt-1 pb-1 pe-1 m-1 mt-3" key={index}>
+                {entry.time.getDate()}/{entry.time.getMonth() + 1}
             </div>
         ))}
         </div>
