@@ -56,7 +56,7 @@ const WeekView: React.FC<WeekViewProps> = ({setDate}) => {
     }, [])
 
   return <div>
-    {loading && <div className="w-full pt-3 flex justify-center items-center">
+    {loading && <div className="w-full p-3 pb-4 flex justify-center items-center">
                   <Spinner/>
     </div>}
     <div className="w-full">

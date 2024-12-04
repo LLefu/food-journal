@@ -3,13 +3,18 @@
 @tailwind utilities;
 
 :root { 
-  --background-dark: #121212;
-  --background: #282828;
-  --background-light: #3f3f3f;
+  --background-dark: #292929;
+  --background: #3a3a3a;
+  --background-light: #4d4d4d;
   --highlight-dark: #1b3645;
-  --highlight: #334957;
-  --highlight-light: #4a5e6b;
+  --highlight: #4671ff;
   --text: #ffffff;
+  --red: #ff0000;
+  --green: #25b900;
+}
+
+.text-neutral-500{
+  color: var(--background-light);
 }
 
 .bg-neutral-500{
@@ -20,12 +25,32 @@
   border: var(--background-light);
 }
 
+.text-neutral-400{
+  color: var(--highlight);
+}
+
 .bg-neutral-400{
   background-color: var(--highlight);
 }
 
 .border-neutral-400{
   border: var(--highlight);
+}
+
+.bg-red-500{
+  background-color: var(--red);
+}
+
+.border-red-500{
+  border: var(--red);
+}
+
+.bg-green-500{
+  background-color: var(--green);
+}
+
+.border-green-500{
+  border: var(--green);
 }
 
 body {

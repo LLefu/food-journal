@@ -1,5 +1,5 @@
 .isDanger{
-    background-color: red;
+    background-color: var(--red);
     padding-top: 20px;
     width: 20px;
     border-radius: 4px;
@@ -7,7 +7,7 @@
 }
 
 .isPositive{
-    background-color: green;
+    background-color: var(--green);
     padding-top: 20px;
     width: 20px;
     border-radius: 4px;
