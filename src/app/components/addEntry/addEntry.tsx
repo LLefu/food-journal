@@ -9,12 +9,12 @@ import EntryType from "@/app/types/enums/entryType";
 import Today from "../today/today";
 
 interface AddEntryProps {
-    date: Date;
-    setPage: Function;
-    setTitle: Function;
+  date: Date;
+  setPage: Function;
+  setTitle: Function;
 }
 
-const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
+const AddEntry: React.FC<AddEntryProps> = ({ date, setPage, setTitle }) => {
 
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<EntryType>(EntryType.Food);
@@ -39,52 +39,52 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
   }
 
 
-    useEffect(() => {
-      if (date.getHours() === 0) {
-        setHours(new Date().getHours());
-        setMinutes(new Date().getMinutes())
-      }
-      setTitle("Add Entry");
-    }, [date]);
-
-    function isValid(): boolean {
-      if (!name.trim()) return false;
-    
-      if (hours === null || hours < 0 || hours > 23) return false;
-      if (minutes === null || minutes < 0 || minutes > 59) return false;
-    
-      return true;
+  useEffect(() => {
+    if (date.getHours() === 0) {
+      setHours(new Date().getHours());
+      setMinutes(new Date().getMinutes())
     }
+    setTitle("Add Entry");
+  }, [date]);
 
-  async function addEntry(){
-    if(isValid()){
-        setTimeOut(true);
-        const dateToAdd = new Date(date);
-        dateToAdd.setHours(hours!);
-        dateToAdd.setMinutes(minutes!);
+  function isValid(): boolean {
+    if (!name.trim()) return false;
 
-        const entryToAdd: Entry = {
-          name: name,
-          entryType: type,
-          time: new Date(dateToAdd),
-          userId: "950295eb-bff1-4243-8680-537aa62860e8"
-        }
+    if (hours === null || hours < 0 || hours > 23) return false;
+    if (minutes === null || minutes < 0 || minutes > 59) return false;
 
-        const response = await fetch("../api/entry/add-entry", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(entryToAdd)
-        })
-        if (response.status === 200) {
-          setPage(<Today setTitle={setTitle} setPage={setPage} />)
-        } else {
-            console.log(response);
-        }
-      }else{
-        setValidation(true);
+    return true;
+  }
+
+  async function addEntry() {
+    if (isValid()) {
+      setTimeOut(true);
+      const dateToAdd = new Date(date);
+      dateToAdd.setHours(hours!);
+      dateToAdd.setMinutes(minutes!);
+
+      const entryToAdd: Entry = {
+        name: name,
+        entryType: type,
+        time: new Date(dateToAdd),
+        userId: "950295eb-bff1-4243-8680-537aa62860e8"
       }
+
+      const response = await fetch("../api/entry/add-entry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(entryToAdd)
+      })
+      if (response.status === 200) {
+        setPage(<Today setTitle={setTitle} setPage={setPage} />)
+      } else {
+        console.log(response);
+      }
+    } else {
+      setValidation(true);
+    }
   }
 
 
@@ -98,9 +98,9 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
             theme={inputTheme}
             value={name}
             required
-            onChange={(e) => {setName(e.target.value); setValidation(false)}}
+            onChange={(e) => { setName(e.target.value); setValidation(false) }}
             helperText={
-              validation && <>
+              (validation && name.trim() === "") && <>
                 Please fill this field!
               </>
             }
@@ -108,46 +108,46 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
         </div>
         <div className="p-2">
           <h1>Type:</h1>
-          <TypePicker setType={setType}/>
+          <TypePicker setType={setType} />
         </div>
         <div className="p-2">
           <h1>Time:</h1>
           <div className="flex items-center">
-          <TextInput
-            type="number"
-            required
-            value={hours !== null ? String(hours).padStart(2, "0") : ""}            
-            onChange={(e) => {
-              const value = e.target.value;
-              setHours(value === "" ? null : Number(value));
-              setValidation(false);
-            }}
-            helperText={
-              validation && <>
-                Please fill this field!
-              </>
-            }
-            color="gray"
-            theme={inputTheme}
-          />
-          <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
-          <TextInput
-            type="number"
-            required
-            value={minutes !== null ? String(minutes).padStart(2, "0") : ""}
-            onChange={(e) => {
-              const value = e.target.value;
-              setMinutes(value === "" ? null : Number(value));
-              setValidation(false);
-            }}
-            helperText={
-              validation && <>
-                Please fill this field!
-              </>
-            }
-            color="gray"
-            theme={inputTheme}
-          />
+            <TextInput
+              type="number"
+              required
+              value={hours !== null ? String(hours).padStart(2, "0") : ""}
+              onChange={(e) => {
+                const value = e.target.value;
+                setHours(value === "" ? null : Number(value));
+                setValidation(false);
+              }}
+              helperText={
+                (validation && hours) && <>
+                  Please fill this field!
+                </>
+              }
+              color="gray"
+              theme={inputTheme}
+            />
+            <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
+            <TextInput
+              type="number"
+              required
+              value={minutes !== null ? String(minutes).padStart(2, "0") : ""}
+              onChange={(e) => {
+                const value = e.target.value;
+                setMinutes(value === "" ? null : Number(value));
+                setValidation(false);
+              }}
+              helperText={
+                (validation && minutes) && <>
+                  Please fill this field!
+                </>
+              }
+              color="gray"
+              theme={inputTheme}
+            />
           </div>
         </div>
         <div className="p-2">
@@ -168,9 +168,9 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
             }
           />
         </div>
-        {timeOut && 
+        {timeOut &&
           <div className="flex justify-center pt-5">
-            <Spinner/>
+            <Spinner />
           </div>
         }
         {!timeOut && <div onClick={addEntry} className="p-2">
