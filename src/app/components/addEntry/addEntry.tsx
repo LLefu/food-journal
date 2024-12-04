@@ -18,8 +18,8 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
 
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<EntryType>(EntryType.Food);
-  const [hours, setHours] = useState<number>(date.getHours());
-  const [minutes, setMinutes] = useState<number>(date.getMinutes());
+  const [hours, setHours] = useState<number | null>(date.getHours());
+  const [minutes, setMinutes] = useState<number | null>(date.getMinutes());
   const [timeOut, setTimeOut] = useState(false);
 
   const inputTheme = {
@@ -49,8 +49,8 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
   async function addEntry(){
         setTimeOut(true);
         const dateToAdd = new Date(date);
-        dateToAdd.setHours(hours);
-        dateToAdd.setMinutes(minutes);
+        dateToAdd.setHours(hours!);
+        dateToAdd.setMinutes(minutes!);
 
         const entryToAdd: Entry = {
           name: name,
@@ -93,21 +93,27 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
         <div className="p-2">
           <h1>Time:</h1>
           <div className="flex items-center">
-            <TextInput
-              type="number"
-              value={hours}
-              onChange={(e)=>{setHours(Number(e.target.value))}}
-              color="gray"
-              theme={inputTheme}
-            />
-            <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
-            <TextInput
-              type="number"
-              value={minutes}
-              onChange={(e)=>{setMinutes(Number(e.target.value))}}
-              color="gray"
-              theme={inputTheme}
-            />
+          <TextInput
+            type="number"
+            value={hours !== null ? String(hours).padStart(2, "0") : ""}            
+            onChange={(e) => {
+              const value = e.target.value;
+              setHours(value === "" ? null : Number(value));
+            }}
+            color="gray"
+            theme={inputTheme}
+          />
+          <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
+          <TextInput
+            type="number"
+            value={minutes !== null ? String(minutes).padStart(2, "0") : ""}
+            onChange={(e) => {
+              const value = e.target.value;
+              setMinutes(value === "" ? null : Number(value));
+            }}
+            color="gray"
+            theme={inputTheme}
+          />
           </div>
         </div>
         <div className="p-2">
