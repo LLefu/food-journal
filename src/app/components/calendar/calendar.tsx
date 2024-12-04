@@ -1,11 +1,12 @@
 "use client";
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Datepicker, WeekStart } from "flowbite-react";
 import StomacheDays from '../stomacheDays/stomacheDays';
 import WeekView from '../weekView/weekView';
 
 interface CalendarProps {
   setDate: Function;
+  setTitle: Function;
 }
 
 const calendarTheme = {
@@ -49,7 +50,11 @@ const calendarTheme = {
   }
 }
 
-const Calendar: React.FC<CalendarProps> = ({setDate}) => {
+const Calendar: React.FC<CalendarProps> = ({setDate, setTitle}) => {
+
+  useEffect(()=>{
+    setTitle("Calendar");
+  }, [])
 
   function onSelectDate(date: Date | null){
     if(date){

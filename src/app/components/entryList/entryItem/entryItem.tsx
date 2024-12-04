@@ -50,6 +50,12 @@ const EntryItem: React.FC<EntryItemProps> = ({entry, refresh}) => {
   }
 
   const modalTheme = {
+      "root": {
+    "base": "fixed inset-x-0 top-0 z-50 h-screen overflow-y-auto overflow-x-hidden md:inset-0 md:h-full",
+    "show": {
+      "on": "flex bg-black bg-opacity-40 dark:bg-opacity-80",
+      "off": "hidden"
+    }},
     "content": {
       "inner": "relative flex max-h-[90dvh] flex-col rounded-lg bg-neutral-500 shadow text-white"
     },
@@ -62,7 +68,7 @@ const EntryItem: React.FC<EntryItemProps> = ({entry, refresh}) => {
     <i onClick={()=>{setOpenModal(true);}} className={`fa fa-times p-3`}></i>
     
     <Modal theme={modalTheme} className="pt-[250px]" size="md" position="center" show={openModal} onClose={() => setOpenModal(false)} popup>
-        <Modal.Header />
+        <Modal.Header/>
         <Modal.Body>
           <div className="text-center">
             <h3 className="mb-5 text-lg font-normal text-white">
