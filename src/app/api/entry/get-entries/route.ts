@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   if(req.method === "POST"){
     const json = await req.json();
         
-    const startOfDay = new Date(json);
+    const startOfDay = new Date(json.date);
     startOfDay.setHours(0);
     startOfDay.setMinutes(0);
     startOfDay.setSeconds(0);
@@ -18,6 +18,7 @@ export async function POST(req: Request) {
 
     const entries = await prisma.entry.findMany({
         where: {
+            userId: json.userId,
             time: {
                 gte: startOfDay,
                 lt: endOfDay,

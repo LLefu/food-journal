@@ -25,12 +25,15 @@ const WeekView: React.FC<WeekViewProps> = ({setDate}) => {
     const [loading, setLoading] = useState(true);
     
     async function getWeekEntries(){
+            const userId = localStorage.getItem("userId")
             const weekDays = getWeekDays(new Date());
             const requestBody = {
+                userId: userId,
                 start: weekDays[0],
                 end: weekDays[6]
             }
     
+
             const response = await fetch("../api/entry/get-entries-week", {
                 method: "POST",
                 headers: {

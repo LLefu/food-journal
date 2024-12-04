@@ -24,12 +24,17 @@ const EntryList: React.FC<EntryListProps> = ({setPage, date, setTitle}) => {
         day.setMinutes(12);
         day.setSeconds(12);
 
+        const userId = localStorage.getItem("userId")
+
         const response = await fetch("../api/entry/get-entries", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(day)
+            body: JSON.stringify({
+                date: day,
+                userId: userId
+            })
         })
         if (response.status === 200) {
             const json = await response.json();

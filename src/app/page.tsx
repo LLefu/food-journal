@@ -20,7 +20,7 @@ export default function Home() {
  
   const isLoggedIn = async () => {
     const userId = await localStorage.getItem('userId');
-    return userId !== null;
+    return (userId != "undefined" && userId != null);
   };
 
   useEffect(() => {

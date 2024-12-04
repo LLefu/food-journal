@@ -3,10 +3,13 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request) {
-  if(req.method === "GET"){
+export async function POST(req: Request) {
+  if(req.method === "POST"){
+    const json = await req.json();
+
     const entries = await prisma.entry.findMany({
         where: {
+            userId: json.userId,
             entryType: EntryType.StomacheStart
         },
         orderBy: {

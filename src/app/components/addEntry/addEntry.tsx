@@ -63,11 +63,13 @@ const AddEntry: React.FC<AddEntryProps> = ({ date, setPage, setTitle }) => {
       dateToAdd.setHours(hours!);
       dateToAdd.setMinutes(minutes!);
 
+      const userId = localStorage.getItem("userId");
+
       const entryToAdd: Entry = {
         name: name,
         entryType: type,
         time: new Date(dateToAdd),
-        userId: "950295eb-bff1-4243-8680-537aa62860e8"
+        userId: userId!
       }
 
       const response = await fetch("../api/entry/add-entry", {

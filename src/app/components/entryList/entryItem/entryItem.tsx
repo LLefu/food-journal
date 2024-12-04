@@ -41,7 +41,6 @@ const EntryItem: React.FC<EntryItemProps> = ({entry, refresh}) => {
         })
         if (response.status === 200) {
             const json = await response.json();
-            console.log(json)
             refresh();
             setOpenModal(false)
         } else {

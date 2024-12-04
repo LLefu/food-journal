@@ -18,6 +18,7 @@ export async function POST(req: Request) {
 
     const entries = await prisma.entry.findMany({
         where: {
+            userId: json.userId,
             time: {
                 gte: startOfWeek,
                 lte: endOfWeek,

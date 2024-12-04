@@ -36,7 +36,7 @@ const Login = () => {
     })
     if (response.status === 200) {
       const user = await response.json()
-      localStorage.setItem('userId', user);
+      localStorage.setItem('userId', user.id.id);
       router.push(`/`);
     } else {
       if (response.status == 404) setError("Incorrect login")

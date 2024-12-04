@@ -11,11 +11,16 @@ const StomacheDays: React.FC<StomacheDaysProps> = ({setDate}) => {
 
     useEffect(()=>{
         async function getStomacheDays(){
+            const userId = localStorage.getItem("userId")
+
             const response = await fetch("../api/entry/get-stomache-days", {
-                method: "GET",
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
+                body: JSON.stringify({
+                    userId: userId
+                })
             })
             if (response.status === 200) {
                 const json = await response.json();
