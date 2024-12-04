@@ -21,6 +21,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
   const [hours, setHours] = useState<number | null>(date.getHours());
   const [minutes, setMinutes] = useState<number | null>(date.getMinutes());
   const [timeOut, setTimeOut] = useState(false);
+  const [validation, setValidation] = useState(false);
 
   const inputTheme = {
     "base": "flex ",
@@ -46,7 +47,17 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
       setTitle("Add Entry");
     }, [date]);
 
+    function isValid(): boolean {
+      if (!name.trim()) return false;
+    
+      if (hours === null || hours < 0 || hours > 23) return false;
+      if (minutes === null || minutes < 0 || minutes > 59) return false;
+    
+      return true;
+    }
+
   async function addEntry(){
+    if(isValid()){
         setTimeOut(true);
         const dateToAdd = new Date(date);
         dateToAdd.setHours(hours!);
@@ -71,19 +82,28 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
         } else {
             console.log(response);
         }
+      }else{
+        setValidation(true);
+      }
   }
 
 
   return (
     <div className="h-full">
-      <div className="p-5">
+      <form className="p-5">
         <div className="p-2">
           <h1>Name:</h1>
           <TextInput
-            color="gray"
+            color={validation ? `${name == "" ? "failure" : "gray"}` : "gray"}
             theme={inputTheme}
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            required
+            onChange={(e) => {setName(e.target.value); setValidation(false)}}
+            helperText={
+              validation && <>
+                Please fill this field!
+              </>
+            }
           />
         </div>
         <div className="p-2">
@@ -95,22 +115,36 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
           <div className="flex items-center">
           <TextInput
             type="number"
+            required
             value={hours !== null ? String(hours).padStart(2, "0") : ""}            
             onChange={(e) => {
               const value = e.target.value;
               setHours(value === "" ? null : Number(value));
+              setValidation(false);
             }}
+            helperText={
+              validation && <>
+                Please fill this field!
+              </>
+            }
             color="gray"
             theme={inputTheme}
           />
           <p className="ps-4 pe-4 text-lg font-bold text-4xl">:</p>
           <TextInput
             type="number"
+            required
             value={minutes !== null ? String(minutes).padStart(2, "0") : ""}
             onChange={(e) => {
               const value = e.target.value;
               setMinutes(value === "" ? null : Number(value));
+              setValidation(false);
             }}
+            helperText={
+              validation && <>
+                Please fill this field!
+              </>
+            }
             color="gray"
             theme={inputTheme}
           />
@@ -121,6 +155,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
           <TextInput
             theme={inputTheme}
             disabled={true}
+            required
             value={
               date
                 .getDate()
@@ -141,7 +176,7 @@ const AddEntry: React.FC<AddEntryProps> = ({date, setPage, setTitle}) => {
         {!timeOut && <div onClick={addEntry} className="p-2">
           <TextButton text="Add Entry" />
         </div>}
-      </div>
+      </form>
     </div>
   );
 }
