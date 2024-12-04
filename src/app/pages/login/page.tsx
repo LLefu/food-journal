@@ -46,6 +46,10 @@ const Login = () => {
 
   return (
     <div className="h-full flex flex-col p-14 justify-center">
+      <div className="flex flex-col items-center">
+        <h1 className="text-bold text-4xl">Food Journal</h1>
+        <p className="text-bold text-xl">Login</p>
+      </div>
       <div className="pb-5">
         <h1>Username:</h1>
         <TextInput
