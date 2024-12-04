@@ -14,7 +14,7 @@
         padding: 20px;
     }
     
-    .active{
+    .isPage{
         color: var(--highlight);
     }
 }
